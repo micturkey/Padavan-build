@@ -36,13 +36,13 @@ jobs:
         pkg-config zlib1g-dev libgmp3-dev libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev wget
     - name: Clone source code
       run: |
-        git clone --depth=1 https://github.com/hanwckf/rt-n56u.git /opt/rt-n56u
+        git clone --depth=1 https://github.com/micturkey/rt-n56u.git /opt/rt-n56u
         cd /opt/rt-n56u/toolchain-mipsel
         sh dl_toolchain.sh
         mkdir -p /opt/images/
     - name: Build Firmware
       env:
-        TNAME: R2100
+        TNAME: RM2100
       run: |
         cd /opt/rt-n56u/trunk
         if [ ! -f configs/templates/$TNAME.config ] ; then
@@ -81,12 +81,16 @@ jobs:
         sed -i '/CONFIG_FIRMWARE_INCLUDE_TCPDUMP/d' configs/templates/$TNAME.config      #删除配置项TCPDUMP
         sed -i '/CONFIG_FIRMWARE_INCLUDE_EAP_PEAP/d' configs/templates/$TNAME.config     #删除配置项EAP_PEAP
         sed -i '/CONFIG_FIRMWARE_INCLUDE_OPENSSL_EC/d' configs/templates/$TNAME.config   #删除配置项OPENSSL_EC
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_SMARTDNS/d' configs/templates/$TNAME.config     #删除配置项smartdns
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_SMARTDNSBIN/d' configs/templates/$TNAME.config   #删除配置项smartdns
         ####################################################################
         # 以下选项是定义你需要的功能（y=集成,n=忽略），重新写入到.config文件。
         ####################################################################
         echo "CONFIG_FIRMWARE_INCLUDE_LANG_CN=y" >> configs/templates/$TNAME.config      #设置界面简体中文
         echo "CONFIG_FIRMWARE_INCLUDE_QOS=n" >> configs/templates/$TNAME.config          #删除QOS
         echo "CONFIG_FIRMWARE_INCLUDE_SMBD36=y" >> configs/templates/$TNAME.config       #使用SMBD36新版本
+        echo "CONFIG_FIRMWARE_INCLUDE_SMARTDNS=y" >> .config #smartdns
+        echo "CONFIG_FIRMWARE_INCLUDE_SMARTDNSBIN=y" >> .config #smartdns二进制文件
         echo "CONFIG_FIRMWARE_INCLUDE_DDNS_SSL=n" >> configs/templates/$TNAME.config     #删除DDNS_SSL
         echo "CONFIG_FIRMWARE_INCLUDE_HTTPS=n" >> configs/templates/$TNAME.config        #删除HTTPS
         echo "CONFIG_FIRMWARE_INCLUDE_OPENVPN=n" >> configs/templates/$TNAME.config      #删除OPENVPN
