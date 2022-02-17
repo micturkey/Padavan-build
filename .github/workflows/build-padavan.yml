@@ -82,7 +82,6 @@ jobs:
         sed -i '/CONFIG_FIRMWARE_INCLUDE_EAP_PEAP/d' configs/templates/$TNAME.config     #删除配置项EAP_PEAP
         sed -i '/CONFIG_FIRMWARE_INCLUDE_OPENSSL_EC/d' configs/templates/$TNAME.config   #删除配置项OPENSSL_EC
         sed -i '/CONFIG_FIRMWARE_INCLUDE_SMARTDNS/d' configs/templates/$TNAME.config     #删除配置项smartdns
-        sed -i '/CONFIG_FIRMWARE_INCLUDE_SMARTDNSBIN/d' configs/templates/$TNAME.config   #删除配置项smartdns
         ####################################################################
         # 以下选项是定义你需要的功能（y=集成,n=忽略），重新写入到.config文件。
         ####################################################################
@@ -90,7 +89,6 @@ jobs:
         echo "CONFIG_FIRMWARE_INCLUDE_QOS=n" >> configs/templates/$TNAME.config          #删除QOS
         echo "CONFIG_FIRMWARE_INCLUDE_SMBD36=y" >> configs/templates/$TNAME.config       #使用SMBD36新版本
         echo "CONFIG_FIRMWARE_INCLUDE_SMARTDNS=y" >> configs/templates/$TNAME.config #smartdns
-        echo "CONFIG_FIRMWARE_INCLUDE_SMARTDNSBIN=y" >> configs/templates/$TNAME.config #smartdns二进制文件
         echo "CONFIG_FIRMWARE_INCLUDE_DDNS_SSL=n" >> configs/templates/$TNAME.config     #删除DDNS_SSL
         echo "CONFIG_FIRMWARE_INCLUDE_HTTPS=n" >> configs/templates/$TNAME.config        #删除HTTPS
         echo "CONFIG_FIRMWARE_INCLUDE_OPENVPN=n" >> configs/templates/$TNAME.config      #删除OPENVPN
